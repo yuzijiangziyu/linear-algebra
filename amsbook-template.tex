@@ -1,0 +1,390 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{amsbook}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{example}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Fp}{\mathbb{F}_p}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\kron}[2]{\left(\frac{#1}{#2}\right)}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\tr}{\operatorname{tr}}
+
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+
+%    For a single index; for multiple indexes, see the manual
+%    "Instructions for preparation of papers and monographs:
+%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+\makeindex
+
+\begin{document}
+
+\frontmatter
+
+\title{Linear Algebra}
+
+%    Remove any unused author tags.
+
+%    author one information
+\author{Anji Yu}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+%    author two information
+\author{}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+\subjclass[2010]{Primary }
+
+\keywords{}
+
+\date{}
+
+\begin{abstract}
+\end{abstract}
+
+\maketitle
+
+%    Dedication.  If the dedication is longer than a line or two,
+%    remove the centering instructions and the line break.
+%\cleardoublepage
+%\thispagestyle{empty}
+%\vspace*{13.5pc}
+%\begin{center}
+%  Dedication text (use \\[2pt] for line break if necessary)
+%\end{center}
+%\cleardoublepage
+
+%    Change page number to 6 if a dedication is present.
+\setcounter{page}{4}
+
+\tableofcontents
+
+%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+\include{}
+
+\mainmatter
+%    Include main chapters here.
+\chapter{Vector Space}
+\section{Fields}
+%\begin{definition}
+%	A field is a set of element $F$ together with a pair of binary operators $(+, \cdot)$ such that there is $0$ and $1$ in $F$ such that $0\cdot1 = 0$, $F$ is an Abelian group under $+$ with identity 0 and $F^*\equiv F\backslash\{0\}$ is an Abelian group under $\cdot$ with identity 1, and the two operators satisfy distribution law,
+%	\begin{equation*}
+%	(a + b)\cdot c = a\cdot c + b\cdot c.
+%	\end{equation*}
+%\end{definition}
+\begin{definition}
+	A division ring is a set of element $F$ together with a pair of binary operators $(+, \cdot)$ referred as addition and multiplication respectively such that there is $0$ and $1$ in $F$ satisfying $F$ is an Abelian group under $+$ with identity 0; $F^*\equiv F\backslash\{0\}$ is a group under $\cdot$ with identity 1; and the two operators satisfy 2-sided distribution law,
+	\begin{equation*}
+	\begin{split}
+	(a + b)\cdot c &= a\cdot c + b\cdot c,\\
+	c\cdot (a + b) &= c\cdot a + c\cdot b.
+	\end{split}
+	\end{equation*}
+	A field is a division ring whose multiplication is Abelian.
+\end{definition}
+%\begin{remark}
+%	We will extensively use `$-$' sign in a way that $a - b\equiv a + (-b)$. 
+%\end{remark}
+Note that if we set $b = 0$ to above equations we get $a\cdot0 = 0\cdot a = 0$ for every $a\in F$.
+\section{Vector space}
+\begin{definition}
+	An Abelian group $V$ with a field $F$ is called a vector space if
+\end{definition}
+When there is no ambiguity, we might omit the base field $F$, and only call a vector space over $F$ a vector space.
+\section{Linear dependence}
+This is a good place to talk about some conventions. When we write $\{v_i\}$ we assume there exists an corresponding index set $I$, and $i$ runs over $I$. The order of $I$ will be specified if necessary. If $|I| = n$, then $I$ is regarded as a set of natural number form 1 to $n$. We shall carefully distinguish index letter such as $\{v_i\}$ and $\{u_j\}$, using same (resp. different) letter means taking index from same (resp. different) index set. We will adopt Einstein summation convention, which states that dummy index in an expression such as $a_iv_i$ is summation through the index set $I$, i.e., $a_iv_i\equiv \sum_{i\in I}a_iv_i$.  
+\begin{definition}
+	Let $\{v_i\}$ be a finite set of vectors, $\{v_i\}$ \emph{linearly independent} if it is empty or for any set of scalars $\{a_i\}$ satisfying $\sum_{i}a_iv_i = 0$ implies $a_i = 0$ for each $i$. Otherwise $\{v_i\}$ is \emph{linearly dependent}. A vector $v$ is a \emph{linear combination} of $\{v_i\}$ if there exists a set of scalars $\{a_i\}$ such that $v = a_iv_i$.
+\end{definition}
+
+Union a linearly dependent set with any other vector set results in a linearly dependent set. On the contrary, any subset of linearly independent set is linearly independent. 
+%If $\{v_i\}$ is linearly dependent, then union any other set of vectors will result in a linearly dependent set. On the contrary, if $\{v_i\}$ is linearly independent, then every subset of it is a linearly independent set.
+
+\begin{theorem}
+	Let $X\equiv\{x_i\}$ be a set of $n$ vectors and $Y\equiv\{y_j\}$ be a set of $n + 1$ vectors whose elements are all linear combinations of $X$, then $Y$ is linearly dependent.
+\end{theorem}
+\begin{proof}
+	If $n = 1$, we can find scalars $\alpha$ and $\beta$ such that $y_1 = \alpha x_1$ and $y_2 = \beta x_1$, apparently they are linearly dependent. Suppose $n > 1$. Let $X'\equiv X \backslash \{x_n\}$ and $\{a_j\}$ be a set of scalars such that $y'_j \equiv y_j - a_jx_n$ is a linear combination of $X'$ for each $j$. If $a_j = 0$ for each $j$, by induction hypothesis on $n - 1$ we are done. Otherwise WLOG we assume $a_{n + 1} = 1$. $x_n$ is linear combination of $X'\cup\{y_{n + 1}\}$.
+%	 therefore so is $y_i$ for each $i$. 
+	Let $y''_i = y_i - a_iy_{n + 1}$, then $\{y''_i\}$ is a linear combination of $X'$ for each $i\in	\{1,2\dots n\}$, due to induction hypothesis we have a set of not-all-zero scalars $\{b_i\}$ such that
+	$$\sum_{i = 1}^{n}b_iy''_i = 0 \Rightarrow \sum_{i = 1}^{n}b_iy_i - \sum_{i = 1}^{n}b_ia_iy_{n + 1} = 0.$$
+	Hence $Y$ is linearly dependent.
+\end{proof}
+A more useful version of the theorem is as follows, which will be used to define dimension of a vector space.
+\begin{corollary}
+	If $Y$ is linearly independent such that in which each element is a linear combination of another set $X$, then $|Y| \le |X|$.
+\end{corollary}
+
+\section{Basis and Dimension}
+\begin{definition}
+	An ordered set $B$ of vectors of $V$ is a \emph{basis} if $B$ is linearly independent and every vector $v\in V$ is a linear combination of $B$. $V$ is \emph{finitely generated} if $V$ has a finite basis. 
+\end{definition}
+
+Suppose $V$ is finitely generated and $B$ is a finite basis, let $B'$ be another basis of $V$, due to the fact that $B'$ is linearly independent and every element in it is a linear combination of $B$, we have $|B'| \le |B|$, so $B'$ is finite. Similarly, $|B| \le |B'|$. Therefore in a finitely generated vector space every basis has the same order. Which leads to the following definition,
+\begin{definition}
+	The order of a basis of a finitely generated vector space $V$ is called the \emph{dimension} of $V$, denoted by $\dim{V}$.
+\end{definition}
+From now on we shall call a finite generated vector space a finite space, or simply finite, and we shall only deal with finite vector space unless otherwise stated.
+%Let $B$ be a independent set of $V$, $B$ is a \emph{maximal independent set} if for every vector $v\in V\backslash B$ we have $B\cup \{x\}$ is linearly dependent.
+
+
+To find a basis of $V$ starting by an linearly independent set $B$ (possibly empty), we can keep adding on $B$ by vectors which can not be written as linear combination of $B$ step by step until there is none could be added, i.e., every vector in $V$ is a linear combination of $B$ and $B$ is linearly independent. Note this process must terminate for a finite space. Therefore we find a maximal independent set, which is a basis. This process yields the fact that any linearly independent set can be extended to a basis. We will review this process in \ref{subspace}
+
+Dimension of a vector space is invariant under different choices of basis. On the other hand, a vector space is determined by its dimension up to isomorphism. Not everything in vector space is basis invariant. For example, suppose $\{v_i\}$ is a basis of vector space $V$, every vector $u\in V$ can be written as a linear combination of $\{v_i\}$ in a unique way $u = a_iv_i$. $\{a_i\}$ is called the \emph{coordinate} of $u$ under basis $\{v_i\}$. We might also just call it the coordinate if the basis is specified without ambiguity. Apparently coordinates are not basis invariant.
+
+
+%\begin{equation*}
+%	u = a_iv_i.
+%\end{equation*}
+%To find a maximal independent set, suppose we have a vector space $V$, and a set $B$ of vectors in $V$ which is initially empty. We keep adding vectors which can not be written as linear combination of $B$ step by step until there is none to be added, i.e., every vector in $V$ is a linear combination of $B$ and $B$ is linearly independent. Note it is possible that the process will not terminate. Therefore we indeed find a maximal independent set if the process terminate.
+
+\section{Local structure}
+	\subsection{Subspace}\label{subspace}
+	\begin{definition}
+		A subset $W$ of $V$ over $F$ is a \emph{subspace} if $W$ is a vector space over $F$. If $W$ and $U$ are subspace of $V$, the sum of them $W+U$ is defined as $\{w + u\mid w\in W, u\in U\}$.
+%		Let $W$ be a subset of vector space $V$, $W$ is a \emph{subspace} if $W$ is closed under all the possible vector space calculation, i.e., every linear combination of vectors in $W$ ends up being in $W$. \emph{Codimension} of $W$ is $\dim V - \dim W$.
+	\end{definition}
+	Set-theoretical intersection of two subspace is again a subspace, the sum of two subspace is also a subspace. We prove the latter and leave former as an exercise.
+	\begin{theorem}
+		Let $W$ and $U$ be two subspaces of $V$, $W+U$ is a subspace.
+	\end{theorem}
+	\begin{proof}
+		Let $v_i = w_i + u_i\in W+U$ for $i = 1, 2$, then for any scalar $a, b$, $av_1 + bv_2 = aw_1 + au_1 + bw_2 + bu_2\in W+U.$
+	\end{proof}
+%It is easy to see that if $W$ is a subspace of $V$, $W$ is a vector space on its own right. 
+
+	Suppose $S$ is a subset of $V$,  the set of all linear combination of vectors in $S$ is call the \emph{span} of it, denoted by $\left\langle S\right\rangle$. By convention the span of $\emptyset$ is $\{0\}$. It is a routine to check $S'$ is a vector space (over the same field), hence a subspace of $V$. 
+	Note the span is defined by a bottom-up fashion, it could equivalently defined in a top-down way. We shall proof the following
+	\begin{theorem}
+		Let $S$ be a subset of $V$ and $\{W_i\}$ be the set of all the subspace containing $S$, then $\left\langle S\right\rangle = \cap_i W_i$
+	\end{theorem}
+	\begin{proof}
+		$\left\langle S\right\rangle \subseteq W_i$ for each $i$, it follows that $\left\langle S\right\rangle \subseteq \cap_i W_i$. 
+		Since $\left\langle S\right\rangle \in \{W_i\}$, we obtain the other inclusion.
+	\end{proof}
+%	We denote $S'$ by $\left\langle S\right\rangle$ and we call $\left\langle S\right\rangle$ the subspace generated by $S$. 
+
+	
+	The dimension of a subspace is no more than the original space.
+	\subsection{Quotient space}
+\section{Isomorphism}
+\begin{definition}
+	Two vector spaces $V$ and $W$ over $F$ are isomorphic if there exists a bijection $\tau \colon V \to W$, $v \to v^\tau$ such that for all vectors $u, v \in V$ and scalars $a, b$,
+	\begin{equation*}
+	(au + bv)^{\tau} = au^{\tau} + bv^{\tau}
+	\end{equation*}
+	in this case we call $\tau$ an isomorphism.
+\end{definition}
+Apply $\tau^{-1}$ on the above equation, we obtain that $\tau^{-1}$ is also linear. Hence a bijection $\tau$ is an isomorphism if and only if $\tau^{-1}$ is an isomorphism
+
+
+%At the first sight, the condition of an isomorphism seems too strong, a bijection is not enough. But 
+%We have a very strong precondition of $\tau$, since we require $\tau$ is a map from a basis to another. 
+
+
+\chapter{Linear operator}
+\section{Linear map}
+Linear maps are those maps between vector spaces preserving linearity. We remark that we shall define the linear map as a right action in an exponential way, which is against most of modern text which adopt left action. Effectively many of the results we obtained from now on will be the transpose version of the corresponding results in those text. 
+\begin{definition}
+	Let $V$ and $W$ be vector spaces over $F$. A function $\tau$ is a \emph{linear map} if for all vectors $u, v \in V$ and scalars $a, b$,
+		\begin{equation*}
+	(au + bv)^{\tau} = au^{\tau} + bv^{\tau}.
+	\end{equation*}
+	The set of all linear maps from $V$ to $W$ is denoted by $L(V, W)$.
+\end{definition}
+An identity is a map maps every vector to itself (so the target space is the same as domain space) and we denote identity of $V$ by $I_V$, and sometimes $I$ if there is no ambiguity. A zero map is a map maps every vector to zero. It is easy to see they are linear maps.
+
+Two linear maps are equal if and only if they map every element to the same element. Hence identical linear maps map a basis to the same elements. But the inverse is also true,
+\begin{theorem}
+	A linear map is completely determined by its images on a basis of domain space.
+\end{theorem}
+\begin{proof}
+	Suppose $\tau_i$ is a linear map $\tau \colon V \to W$, $v \to v^\tau$ for $i = 1,2$ such that there exists a basis $\{v_i\}$ of $V$ with the property $v_i^{\tau_1} = v_i^{\tau_2}$ for each $v_i$. Let $v\in V$ with coordinate $\{a_i\}$, we have
+	\begin{equation*}
+		v^{\tau_1} = a_iv_i^{\tau_1} = a_iv_i^{\tau_2} = v^{\tau_2}.
+	\end{equation*} 
+	$v^{\tau_1} = v^{\tau_2}$ for every $v\in V$, therefore $\tau_1 = \tau_2$.
+\end{proof}
+Suppose we have a map $\tau$ (not linear yet) from a basis $\{e_i\}$ of $V$ to $W$, we can linearise $\tau$ in the way that for any $v = a_ie_i\in V$, 
+\begin{equation*}
+	v^{\tau} = a_ie_i^{\tau}.
+\end{equation*}
+It is easy to verify that $\tau$ is indeed a linear map and $\tau$ is uniquely determined. More over, if $\tau$ maps to a basis $\{e'_j\}$ of $W$, we may define $\tau^{-1} \colon \{e'_j\} \to \{e_i\}$, $e_i^\tau\to e_i$ then linearise it.
+
+Let $\tau$ be a linear map $\tau \colon V\to W$, we use $\ker{\tau}$ to denotes $\{v\in V\mid v^\tau = 0\}$, $\im{\tau} = 
+\{v^\tau\mid v\in V\}$. It is easy to see they are vector space.
+%	There are two vector spaces associated with a linear map $\tau$, 
+
+%The set $L(V, W)$ of all linear maps from $V$ to $W$ can be made to a vector space. 
+\begin{definition}
+	Let $\tau, \sigma\in L(V, W)$, We define $a\tau + b\sigma$ to be the map
+	\begin{equation*}
+	v \to v^{a\tau + b\sigma} \equiv av^{\tau} + bv^{\sigma},
+	\end{equation*}
+	for each element $v\in V$.
+\end{definition}
+Linearity of the above map could be verified as follows
+ \begin{equation*}
+ \begin{split}
+ (cv + du)^{a\tau + b\sigma} 
+ &= a(cv + du)^{\tau} + b(cv + dv)^{\sigma}\\ 
+ &= acv^{\tau} + adu^{\tau} + bcv^\sigma + bdu^\sigma\\
+ &= cv^{a\tau + b\sigma} + du^{a\tau + b\sigma}.
+ \end{split}
+ \end{equation*}
+ Hence every linear combination of linear map is a linear map, $L(V, W)$ is a vector space.
+\section{Matrix representation of a linear map}
+Suppose $\tau$ is a linear map from $V$ of dimension $n$ to $W$ of dimension $m$ and we fix a basis $\{e_i\}$ and $\{e'_j\}$ on $V$ and $W$ respectively. A matrix representation of $\tau$ under the pair of basis is a set of scalars in a form of rectangular array 
+\[
+T=
+\begin{bmatrix}
+t_{11} & t_{12} & t_{13} & \dots  & t_{1m} \\
+t_{21} & t_{22} & t_{23} & \dots  & t_{2m} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+t_{n1} & t_{n2} & t_{n3} & \dots  & t_{nm}
+\end{bmatrix}
+\]
+uniquely determined by the basis in the way that $e_i^{\tau} = t_{ij} e'_j$. In particular for fixed $i$, $\{t_{ij}\}$ is the coordinates of $e_i^{\tau}$ under basis $\{e'_j\}$.
+
+Let's see a special representation of a linear map $\tau$: Suppose $\{u_{r + 1}, \dots, u_n\}$ is a basis of $\ker{\tau}$, then we extent it to a basis of $V$ as $\{u_i\}$, next we find the corresponding element in $W$ by $\{v_1^{\tau}, \dots, v_k^{\tau}\}$ and finally extent it to a basis of $W$. By doing that, $\tau$ has a representation matrix 
+\[
+T=
+\begin{bmatrix}
+I_r & 0 \\
+0 & 0 \\
+\end{bmatrix}
+\]
+where $I_r$ denotes the identity matrix.
+
+Since $L(V, W)$ is a vector space, every element in it also has a matrix representation. Suppose $\tau, \sigma \in L(V, W)$, for any scalar $a, b$, we have
+\begin{equation*}
+e_i^{a\tau + b\sigma} = ae_i^{\tau} + be_i^{\sigma} = a\tau_{ij}e_j' + b\sigma_{ij}e_j' = (a\tau_{ij} + b\sigma_{ij})e_j',
+\end{equation*}
+therefore $(a\tau + b\sigma)_{ij} = a\tau_{ij} + b\sigma_{ij}$. If we consider a linear map composition $\tau\in L(V, W)$ and $\tau\in L(W, U)$, with basis representation under basis $\{e_i\}$, $\{e'_j\}$ and  $\{e''_k\}$ in $V$, $W$ and $U$ respectively, then we have
+\begin{equation*}
+e_i^{\tau \sigma} = \tau_{ik}e'^{\sigma}_k = \tau_{ik}\sigma_{kj}e''_j.
+\end{equation*}
+therefore $(\tau\sigma)_{ij} = \tau_{ik}\sigma_{kj}$. 
+
+Although these calculation rules come from linear map, but they have been made standard to the theory of matrix. 
+%There are matrix calculation law induced by linear transformation, 
+\section{Linear operator}
+Most of the times we are interested in those linear maps that maps a space to itself. Formally, 
+\begin{definition}
+	\emph{Linear operators} of $V$ are those linear maps in $L(V, V)$. We denote $L(V, V)$ as $\End(V)$.
+\end{definition}
+If $\tau \in\End(V)$, we say $\tau$ acting on $V$. 
+
+Let $\tau, \sigma \in \End(V)$, the function composition of them is again in $\End(V)$, i.e., $\tau\sigma\in\End(V)$.
+Therefore additional to be as a vector space, we can have another binary operation defined on $\End(V)$. This is a hint that the endomorphisms has richer properties that usual linear maps.
+
+Almost all the properties of linear map can be inherited by linear operators. But there is a specific thing we would like remark on. Consider a linear operator $\tau \in\End(V)$ and a basis $\{e_i\}$ with the corresponding matrix representation $e_i^\tau = \tau_{ij}e_j$. The matrix representation in this case only relates to one basis. With this in mind, suppose we have another basis $\{e'_i\}$ with a basis transformation $e'_i = \phi_{ij}e_j$, then $\tau$ acting on $\{e'_i\}$ as
+\begin{equation*}
+e'^{\tau}_i = \phi_{ij}e_j^{\tau} = \phi_{ij}\tau_{jk}e_k = \phi_{ij}\tau_{jk}\phi^{-1}_{kl}e'_l.
+\end{equation*} 
+
+A subspace $W$ of $V$ is $\tau$-\emph{invariant} if $w^\tau \in W$ for every $w \in W$. The \emph{restriction} of $\tau$ in $W$ is the action of $\tau$ on $W$, denoted by $\tau|_W$.
+
+\begin{definition}
+	A linear operator $\tau$ is \emph{nilpotent} if there exists a natural number $k$ such that $\tau^k = 0$. 
+\end{definition}
+
+\chapter{Multilinear form}
+
+
+\chapter{Associative algebra}
+
+
+\chapter{Projective geometry}
+
+\chapter{Lie algebra}
+\include{}
+
+\appendix
+%    Include appendix "chapters" here.
+\chapter{Set relation}
+\chapter{Algebraic structure}
+Before given the definitions, we point out that we only concentrate on the binary operators. 
+A algebraic structure is a set with one or more binary operators.
+
+
+\include{}
+
+\backmatter
+%    Bibliography styles amsplain or harvard are also acceptable.
+\bibliographystyle{amsalpha}
+\bibliography{}
+%    See note above about multiple indexes.
+\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------
+% End of amsbook-template.tex
+%-----------------------------------------------------------------------
