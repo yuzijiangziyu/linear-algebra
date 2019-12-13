@@ -48,6 +48,7 @@
 
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
@@ -370,16 +371,9 @@ A subspace $W$ of $V$ is $\tau$-\emph{invariant} if $w^\tau \in W$ for every $w 
 
 
 \section{Root system}
-Suppose $E$ is an euclidean space, i.e., a finite dimensional vector space $V$ over $\R$ endowed with a positive definite symmetric bilinear form $(,)$. The \textbf{dual} of $\alpha\in E$ is defined as $\alpha^\vee = 2\alpha/(\alpha, \alpha)$. For any given vector $\alpha\in E$, we define a hyperplane $P_\alpha = \{\beta\in E \mid (\alpha, \beta) = 0\}$. The reflection with respect to $\alpha$ is the linear map acts trivially on $P_\alpha$ and sends $v$ to $-v$. Explicitly, $\sigma_\alpha(\beta) = \beta - (\beta, \alpha^\vee)\alpha$. Since $(\beta, \alpha^\vee)$ occurs frequently, we denote it by $\cartan{\beta}{\alpha}$. 
+Suppose $E$ is an euclidean space, i.e., a finite dimensional vector space $V$ over $\R$ endowed with a positive definite symmetric bilinear form $(,)$. The \textbf{dual} of $\alpha\in E$ is defined as $\alpha^\vee = 2\alpha/(\alpha, \alpha)$. For any given vector $\alpha\in E$, we define a hyperplane $P_\alpha = \{\beta\in E \mid (\alpha, \beta) = 0\}$, which is the perpendicular complement of $\alpha$ with respect to $E$. The reflection with respect to $\alpha$ is the linear map acts trivially on $P_\alpha$ and sends $v$ to $-v$. Explicitly, $\sigma_\alpha(\beta) = \beta - (\beta, \alpha^\vee)\alpha$. Since $(\beta, \alpha^\vee)$ occurs frequently, we denote it by $\cartan{\beta}{\alpha}$. 
 
-The following fact is useful,
 
-\begin{lemma}{\label{sdf}}
-	Let $\Phi$ be a finite set spans $E$, in which all the reflections $\sigma_\alpha$ permute $\Phi$. Let $\sigma \in GL(V)$, i.e., $\sigma$ is a linear map (which does not necessary preserve inner product) acts trivially on a hyperplane $P$ in $E$ and sends some $\alpha\in E$ to its negative. Then $\sigma = \sigma_\alpha$.
-\end{lemma}
-\begin{proof}
-	Let $\tau = \sigma\sigma_\alpha$. Both $\sigma$ and $\sigma_\alpha$ acts as identity on $E/\R\alpha$, so does $\tau$. Hence the minimal polynomial $m(T)$ of $\tau$ on $E$ divides $(T - 1)^{(\dim E)}$. Since $\tau$ permutes $\Phi$, $\tau^{n!}$ acts trivially on $\Phi$, where $n = |\Phi|$, it follows that $\tau^{n!} = 1$, i.e., $m(T)$ divides $\text{g.c.d}((T^{n!} - 1), (T - 1)^{(\dim E)}) = T - 1$, $\tau = 1$.
-\end{proof}
 
 A subset $\Phi$ of an euclidean space $E$ is called a (reduced) root system on $E$ if it satisfied
 \begin{enumerate}
@@ -388,14 +382,37 @@ A subset $\Phi$ of an euclidean space $E$ is called a (reduced) root system on $
 	\item $\sigma_{\alpha}(\beta) \in \Phi$ for every $\alpha, \beta \in \Phi$.
 	\item $\cartan{\alpha}{\beta} \in \Z$.  
 \end{enumerate}
-And denote $(\Phi, E)$ as the root system with respect to $E$. Implicitly there is an underlying vector space $V$ corresponds to $E$.
+And denote $(\Phi, E)$ as the root system with respect to $E$. Implicitly there is an underlying vector space $V$ corresponds to $E$. The dimension of $V$ is called the rank of $\Phi$.
+
+
+Let $\alpha, \beta\in\Phi$, $\cartan{\alpha}{\beta}\cartan{\beta}{\alpha} = 4\cos^2\theta$ where $\theta$ is the angle between $\alpha$ and $\beta$ in $E$. Hence $4\cos^2\theta$ is limited to 0, 1, 2, 3, 4. The case 4 is trivial. For the case 1, 2 and 3, $\theta$ is given as $\pi/6(5\pi/6)$, $\pi/4(3\pi/4)$ and $\pi/3(2\pi/3)$ respectively. And as divisor of these numbers, at least one of $\cartan{\alpha}{\beta}$ or $\cartan{\beta}{\alpha}$ is $\pm1$. Due to this observation, we have the following 
+\begin{proposition}\label {6.1}
+Suppose $\alpha$ and $\beta$ are non-proportional roots, $(\alpha, \beta) < 0$ (resp. $(\alpha, \beta) > 0$), then $\alpha + \beta \in \Phi$ (resp. $\alpha - \beta \in \Phi$).
+\end{proposition}
+
+\begin{proof}
+	 Suppose $(\alpha, \beta) < 0$ and $\cartan{\alpha}{\beta} = -1$, $\alpha + \beta = \sigma_\beta(\alpha) \in \Phi$; similarly for $\cartan{\beta}{\alpha}$. Similarly for $(\alpha, \beta) > 0$.
+\end{proof}
+
+As an application, let $\alpha$ and $\beta$ be non-proportional roots. Consider the $\beta$-string through $\alpha$, i.e., the set $S = \{\alpha + i\beta\mid i\in \Z\}$, which is invariant under $\sigma_\beta$, hence $S\cap\Phi$ is also invariant under $\sigma_\beta$. Let $q,\ r\in\Z$ be maximal that $\alpha + q\beta, \ \alpha - r\beta \in \Phi$, we must have $\sigma_\beta(\alpha - r\beta) = \alpha - \cartan{\alpha}{\beta}\beta + r\beta = \alpha + q\beta$, $\cartan{\alpha}{\beta} = r - q \le 3$, so the length of the string is at most 4. We next show the string $S\cap\Phi$ is unbroken. Suppose otherwise, there is $i\in \Z$ and $-r < i < q$ such that the string is broken at $\alpha + i\beta$, we have $(\alpha + i_1\beta, \beta) \ge 0$ and $(\alpha + i_2\beta, \beta) \le 0$ for some $i_1 < i < i_2$ due to proposition \ref{6.1}, which is absurd.
+
+A root system $\Phi$ is \textbf{reducible} if it can be partitioned to nonempty orthogonal components, otherwise it is \textbf{irreducible}.  
+
+
+\section{Weyl group}
+The following fact is useful,
+
+\begin{lemma}{\label{sdf}}
+	Let $\Phi$ be a finite set spans $E$, an euclidean space on $V$, in which all the reflections $\sigma_\alpha$ permute $\Phi$. Let $\sigma \in GL(V)$ acts trivially on a hyperplane $P$ in $E$ and sends some $\alpha\in E$ to its negative. Then $\sigma = \sigma_\alpha$.
+\end{lemma}
+\begin{proof}
+	Let $\tau = \sigma\sigma_\alpha$. Both $\sigma$ and $\sigma_\alpha$ acts as identity on $E/\R\alpha$, so does $\tau$. Hence the minimal polynomial $m(T)$ of $\tau$ on $E$ divides $(T - 1)^{(\dim E)}$. Since $\tau$ permutes $\Phi$, $\tau^{n!}$ acts trivially on $\Phi$, where $n = |\Phi|$, it follows that $\tau^{n!} = 1$, i.e., $m(T)$ divides $\text{g.c.d}((T^{n!} - 1), (T - 1)^{(\dim E)}) = T - 1$, $\tau = 1$.
+\end{proof}
+
 
 Let $(\Phi, E)$ be a root system, the dual of $\Phi$ is the set of all the dual of elements in $\Phi$, denoted by $\Phi^\vee$. It is a root system in $E$. Call root system $(\Phi, E)$ and $(\Phi', E')$ \textbf{isomorphic} if there exists a vector space isomorphism $\tau \colon V \to V'$ sending $\Phi \to \Phi'$ and  $\cartan{\alpha}{\beta} = \cartan{\tau(\alpha)}{\tau(\beta)}$ for each pair of roots $\alpha, \beta \in \Phi$. $\tau$ preserves $\langle \ ,\  \rangle$ while is not necessary a isometry. It follows at once that $\tau(\sigma_\alpha(\beta)) = \sigma_{\tau(\alpha)}(\tau(\beta))$. When there is no ambiguity, we denote $\Aut(\Phi)$ the group of all automorphisms of $(\Phi, E)$. Each reflection $\sigma_\alpha(\alpha\in\Phi)$ is an automorphism as well as isometry. The group $\W(\Phi)$ generated by all the reflections $\sigma_\alpha$ is called \textbf{Weyl group} of the $\Phi$. There is a canonical isomorphism between $\W(\Phi)$ and $\W(\Phi^\vee)$ even though $\Phi$ is sometimes not isomorphic to $\Phi'$.
 
 Suppose $\sigma \in GL(V)$ permutes $\Phi$. Then $\sigma \sigma_\alpha \sigma^{-1}$ acts on $\sigma(\beta)$ as $\sigma \sigma_\alpha \sigma^{-1} \sigma(\beta)$ = $\sigma(\sigma_\alpha(\beta)) = \sigma(\beta) - \cartan{\alpha}{\beta}\sigma(\alpha)$. So $\sigma \sigma_\alpha \sigma^{-1}$ acts trivially on $\sigma(P_\alpha)$ and sends $\sigma(\alpha)$ to its negative, which is exactly the reflection $\sigma_{\sigma(\alpha)}$ by lemma \ref{sdf}, from which we conclude that $\W(\Phi) \triangleleft \Aut(\Phi)$. Moreover, $\sigma_{\sigma(\alpha)} \sigma(\beta)= \sigma(\beta) - \cartan{\sigma(\alpha)}{\sigma(\beta)}\sigma(\alpha)$, it follows that $\cartan{\alpha}{\beta} = \cartan{\sigma(\alpha)}{\sigma(\beta)}$, $\sigma\in\Aut(\Phi)$.
-
-Let $\alpha, \beta\in\Phi$, $\cartan{\alpha}{\beta}\cartan{\beta}{\alpha} = 4\cos^2\theta$ where $\theta$ is the angle between $\alpha$ and $\beta$ in $E$. Hence $4\cos^2\theta$ is limited to 0, 1, 2, 3, 4. For the case 1, 2 and 3, $\theta$ is given as $\pi/6(5\pi/6)$, $\pi/4(3\pi/4)$ and $\pi/3(2\pi/3)$ respectively. And as divisor of these numbers, at least one of $\cartan{\alpha}{\beta}$ or $\cartan{\beta}{\alpha}$ is $\pm1$. Suppose $(\alpha, \beta) < 0$ and they are not proportional, if $\cartan{\alpha}{\beta} = -1$, $\alpha + \beta = \sigma_\beta(\alpha) \in \Phi$, else $\cartan{\beta}{\alpha} = -1$, similarly $\beta + \alpha\in \Phi$. Either way we obtain $\alpha + \beta \in \Phi$.
-
 \include{}
 
 \appendix

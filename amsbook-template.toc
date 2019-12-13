@@ -17,6 +17,7 @@
 \contentsline {chapter}{\tocchapter {Chapter}{5}{Projective geometry}}{13}% 
 \contentsline {chapter}{\tocchapter {Chapter}{6}{Lie algebra}}{15}% 
 \contentsline {section}{\tocsection {}{6.1}{Root system}}{15}% 
+\contentsline {section}{\tocsection {}{6.2}{Weyl group}}{16}% 
 \contentsline {chapter}{\tocappendix {Appendix}{A}{Set relation}}{17}% 
 \contentsline {chapter}{\tocappendix {Appendix}{B}{Algebraic structure}}{19}% 
 \contentsline {chapter}{\tocchapter {\chaptername }{}{Bibliography}}{21}% 
