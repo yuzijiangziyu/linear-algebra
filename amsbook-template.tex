@@ -52,7 +52,7 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{xca}[theorem]{Exercise}
 
@@ -540,112 +540,553 @@ An isomorphism carries linearly independent sets to linearly independent sets an
 
 Dimension is therefore the complete invariant of a finite-dimensional vector space up to isomorphism. What depends on a basis is not the vector space itself, but its coordinate description.
 
-\chapter{Linear operator}
-\section{Linear map}
-Linear maps are those maps between vector spaces preserving linearity. We remark that we shall define the linear map as a right action in an exponential way, which is against most of modern text which adopt left action. Effectively many of the results we obtained from now on will be the transpose version of the corresponding results in those text. 
-\begin{definition}
-	Let $V$ and $W$ be vector spaces over $F$. A function $\tau$ is a \emph{linear map} if for all vectors $u, v \in V$ and scalars $a, b$,
-		\begin{equation*}
-	(au + bv)^{\tau} = au^{\tau} + bv^{\tau}.
-	\end{equation*}
-	The set of all linear maps from $V$ to $W$ is denoted by $L(V, W)$.
-\end{definition}
-An identity is a map maps every vector to itself (so the target space is the same as domain space) and we denote identity of $V$ by $I_V$, and sometimes $I$ if there is no ambiguity. A zero map is a map maps every vector to zero. It is easy to see they are linear maps.
+\chapter{Linear Maps and Duality}
 
-Two linear maps are equal if and only if they map every element to the same element. Hence identical linear maps map a basis to the same elements. But the inverse is also true,
-\begin{theorem}
-	A linear map is completely determined by its images on a basis of domain space.
+Chapter 1 described finite-dimensional vector spaces intrinsically, without using coordinates. We now study the maps which preserve their linear structure. The central theme remains the same: coordinates may be useful for calculation, but the objects and constructions themselves do not depend on a choice of basis.
+
+\section{Linear maps}
+
+\begin{definition}
+Let $V$ and $W$ be vector spaces over the same field $F$. A map
+\[
+\tau\colon V\longrightarrow W,
+\qquad v\longmapsto v^\tau,
+\]
+is \emph{linear} if
+\[
+(au+bv)^\tau=au^\tau+bv^\tau
+\]
+for all $u,v\in V$ and $a,b\in F$. The vector space of all linear maps from $V$ to $W$ will be denoted by $L(V,W)$.
+\end{definition}
+
+A linear map necessarily sends $0$ to $0$. The identity map on $V$ will be denoted by $I_V$, or simply $I$ when the underlying space is clear. The zero map will also be denoted by $0$.
+
+We use right-action notation throughout. Thus, if
+\[
+V\xrightarrow{\tau}W\xrightarrow{\sigma}U,
+\]
+then
+\[
+v^{\tau\sigma}=(v^\tau)^\sigma.
+\]
+In particular, composition is read from left to right in the same order in which the maps act on a vector.
+
+\begin{theorem}[Linear extension from a basis]\label{thm:linear-extension}
+Let $B$ be a basis of $V$, and let $f\colon B\to W$ be any function. There exists a unique linear map
+\[
+\tau\colon V\to W
+\]
+such that $b^\tau=f(b)$ for every $b\in B$.
 \end{theorem}
+
 \begin{proof}
-	Suppose $\tau_i$ is a linear map $\tau \colon V \to W$, $v \to v^\tau$ for $i = 1,2$ such that there exists a basis $\{v_i\}$ of $V$ with the property $v_i^{\tau_1} = v_i^{\tau_2}$ for each $v_i$. Let $v\in V$ with coordinate $\{a_i\}$, we have
-	\begin{equation*}
-		v^{\tau_1} = a_iv_i^{\tau_1} = a_iv_i^{\tau_2} = v^{\tau_2}.
-	\end{equation*} 
-	$v^{\tau_1} = v^{\tau_2}$ for every $v\in V$, therefore $\tau_1 = \tau_2$.
+Every $v\in V$ has a unique expression as a finite linear combination
+\[
+v=a_1b_1+\cdots+a_nb_n,
+\qquad b_i\in B.
+\]
+Define
+\[
+v^\tau=a_1f(b_1)+\cdots+a_nf(b_n).
+\]
+Uniqueness of the coordinates makes this well-defined, and the definition immediately gives linearity. Any linear map agreeing with $f$ on $B$ must satisfy the same formula, so it is unique.
 \end{proof}
-Suppose we have a map $\tau$ (not linear yet) from a basis $\{e_i\}$ of $V$ to $W$, we can linearise $\tau$ in the way that for any $v = a_ie_i\in V$, 
-\begin{equation*}
-	v^{\tau} = a_ie_i^{\tau}.
-\end{equation*}
-It is easy to verify that $\tau$ is indeed a linear map and $\tau$ is uniquely determined. More over, if $\tau$ maps to a basis $\{e'_j\}$ of $W$, we may define $\tau^{-1} \colon \{e'_j\} \to \{e_i\}$, $e_i^\tau\to e_i$ then linearise it.
 
-Let $\tau$ be a linear map $\tau \colon V\to W$, we use $\ker{\tau}$ to denotes $\{v\in V\mid v^\tau = 0\}$, $\im{\tau} = 
-\{v^\tau\mid v\in V\}$. It is easy to see they are vector space.
-%	There are two vector spaces associated with a linear map $\tau$, 
+Thus a linear map is nothing more than an arbitrary assignment on a basis, followed by linear extension. In particular, two linear maps are equal if and only if they agree on one basis of their common domain.
 
-%The set $L(V, W)$ of all linear maps from $V$ to $W$ can be made to a vector space. 
+\section{Kernel, image, and the first isomorphism theorem}
+
 \begin{definition}
-	Let $\tau, \sigma\in L(V, W)$, We define $a\tau + b\sigma$ to be the map
-	\begin{equation*}
-	v \to v^{a\tau + b\sigma} \equiv av^{\tau} + bv^{\sigma},
-	\end{equation*}
-	for each element $v\in V$.
-\end{definition}
-Linearity of the above map could be verified as follows
- \begin{equation*}
- \begin{split}
- (cv + du)^{a\tau + b\sigma} 
- &= a(cv + du)^{\tau} + b(cv + dv)^{\sigma}\\ 
- &= acv^{\tau} + adu^{\tau} + bcv^\sigma + bdu^\sigma\\
- &= cv^{a\tau + b\sigma} + du^{a\tau + b\sigma}.
- \end{split}
- \end{equation*}
- Hence every linear combination of linear map is a linear map, $L(V, W)$ is a vector space.
-\section{Matrix representation of a linear map}
-Suppose $\tau$ is a linear map from $V$ of dimension $n$ to $W$ of dimension $m$ and we fix a basis $\{e_i\}$ and $\{e'_j\}$ on $V$ and $W$ respectively. A matrix representation of $\tau$ under the pair of basis is a set of scalars in a form of rectangular array 
+Let $\tau\in L(V,W)$. The \emph{kernel} and \emph{image} of $\tau$ are
 \[
-T=
-\begin{bmatrix}
-t_{11} & t_{12} & t_{13} & \dots  & t_{1m} \\
-t_{21} & t_{22} & t_{23} & \dots  & t_{2m} \\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-t_{n1} & t_{n2} & t_{n3} & \dots  & t_{nm}
-\end{bmatrix}
+\ker\tau=\{v\in V\mid v^\tau=0\}
 \]
-uniquely determined by the basis in the way that $e_i^{\tau} = t_{ij} e'_j$. In particular for fixed $i$, $\{t_{ij}\}$ is the coordinates of $e_i^{\tau}$ under basis $\{e'_j\}$.
-
-Let's see a special representation of a linear map $\tau$: Suppose $\{u_{r + 1}, \dots, u_n\}$ is a basis of $\ker{\tau}$, then we extent it to a basis of $V$ as $\{u_i\}$, next we find the corresponding element in $W$ by $\{v_1^{\tau}, \dots, v_k^{\tau}\}$ and finally extent it to a basis of $W$. By doing that, $\tau$ has a representation matrix 
+and
 \[
-T=
-\begin{bmatrix}
-I_r & 0 \\
-0 & 0 \\
-\end{bmatrix}
+\im\tau=\{v^\tau\mid v\in V\}.
 \]
-where $I_r$ denotes the identity matrix.
-
-Since $L(V, W)$ is a vector space, every element in it also has a matrix representation. Suppose $\tau, \sigma \in L(V, W)$, for any scalar $a, b$, we have
-\begin{equation*}
-e_i^{a\tau + b\sigma} = ae_i^{\tau} + be_i^{\sigma} = a\tau_{ij}e_j' + b\sigma_{ij}e_j' = (a\tau_{ij} + b\sigma_{ij})e_j',
-\end{equation*}
-therefore $(a\tau + b\sigma)_{ij} = a\tau_{ij} + b\sigma_{ij}$. If we consider a linear map composition $\tau\in L(V, W)$ and $\tau\in L(W, U)$, with basis representation under basis $\{e_i\}$, $\{e'_j\}$ and  $\{e''_k\}$ in $V$, $W$ and $U$ respectively, then we have
-\begin{equation*}
-e_i^{\tau \sigma} = \tau_{ik}e'^{\sigma}_k = \tau_{ik}\sigma_{kj}e''_j.
-\end{equation*}
-therefore $(\tau\sigma)_{ij} = \tau_{ik}\sigma_{kj}$. 
-
-Although these calculation rules come from linear map, but they have been made standard to the theory of matrix. 
-%There are matrix calculation law induced by linear transformation, 
-\section{Linear operator}
-Most of the times we are interested in those linear maps that maps a space to itself. Formally, 
-\begin{definition}
-	\emph{Linear operators} of $V$ are those linear maps in $L(V, V)$. We denote $L(V, V)$ as $\End(V)$.
 \end{definition}
-If $\tau \in\End(V)$, we say $\tau$ acting on $V$. 
 
-Let $\tau, \sigma \in \End(V)$, the function composition of them is again in $\End(V)$, i.e., $\tau\sigma\in\End(V)$.
-Therefore additional to be as a vector space, we can have another binary operation defined on $\End(V)$. This is a hint that the endomorphisms has richer properties that usual linear maps.
+Both $\ker\tau$ and $\im\tau$ are subspaces of $V$ and $W$, respectively.
 
-Almost all the properties of linear map can be inherited by linear operators. But there is a specific thing we would like remark on. Consider a linear operator $\tau \in\End(V)$ and a basis $\{e_i\}$ with the corresponding matrix representation $e_i^\tau = \tau_{ij}e_j$. The matrix representation in this case only relates to one basis. With this in mind, suppose we have another basis $\{e'_i\}$ with a basis transformation $e'_i = \phi_{ij}e_j$, then $\tau$ acting on $\{e'_i\}$ as
-\begin{equation*}
-e'^{\tau}_i = \phi_{ij}e_j^{\tau} = \phi_{ij}\tau_{jk}e_k = \phi_{ij}\tau_{jk}\phi^{-1}_{kl}e'_l.
-\end{equation*} 
+\begin{proposition}\label{prop:inj-surj}
+A linear map $\tau\colon V\to W$ is injective if and only if
+\[
+\ker\tau=\{0\},
+\]
+and it is surjective if and only if
+\[
+\im\tau=W.
+\]
+\end{proposition}
 
-A subspace $W$ of $V$ is $\tau$-\emph{invariant} if $w^\tau \in W$ for every $w \in W$. The \emph{restriction} of $\tau$ in $W$ is the action of $\tau$ on $W$, denoted by $\tau|_W$.
+\begin{proof}
+The second statement is the definition of surjectivity. For the first, if $u^\tau=v^\tau$, then $(u-v)^\tau=0$. Hence $\tau$ is injective precisely when the only vector mapped to zero is zero itself.
+\end{proof}
+
+The kernel measures exactly how much information is lost by a linear map. Quotienting by the kernel removes that loss.
+
+\begin{theorem}[First isomorphism theorem]\label{thm:first-isomorphism}
+Let $\tau\colon V\to W$ be linear. Then there is a canonical isomorphism
+\[
+V/\ker\tau\cong\im\tau.
+\]
+Explicitly,
+\[
+(v+\ker\tau)^{\bar\tau}=v^\tau
+\]
+defines an isomorphism
+\[
+\bar\tau\colon V/\ker\tau\longrightarrow\im\tau.
+\]
+\end{theorem}
+
+\begin{proof}
+If $v+\ker\tau=u+\ker\tau$, then $v-u\in\ker\tau$, so
+\[
+v^\tau-u^\tau=(v-u)^\tau=0.
+\]
+Hence $\bar\tau$ is well-defined. It is linear by construction and surjective by the definition of $\im\tau$. If
+\[
+(v+\ker\tau)^{\bar\tau}=0,
+\]
+then $v\in\ker\tau$, so $v+\ker\tau$ is the zero coset. Thus $\bar\tau$ is injective.
+\end{proof}
+
+For finite-dimensional spaces, the familiar dimension formula is now a consequence rather than a separate counting argument.
 
 \begin{definition}
-	A linear operator $\tau$ is \emph{nilpotent} if there exists a natural number $k$ such that $\tau^k = 0$. 
+For a linear map $\tau\colon V\to W$ with $V$ finite-dimensional, define
+\[
+\operatorname{rank}\tau=\dim\im\tau,
+\qquad
+\operatorname{nullity}\tau=\dim\ker\tau.
+\]
 \end{definition}
+
+\begin{corollary}[Rank-nullity theorem]\label{cor:rank-nullity}
+If $V$ is finite-dimensional and $\tau\colon V\to W$ is linear, then
+\[
+\dim V=\operatorname{nullity}\tau+\operatorname{rank}\tau.
+\]
+\end{corollary}
+
+\begin{proof}
+By Theorem \ref{thm:first-isomorphism},
+\[
+V/\ker\tau\cong\im\tau.
+\]
+Taking dimensions and using the quotient-dimension formula from Chapter 1 gives
+\[
+\dim V-\dim\ker\tau=\dim\im\tau.
+\]
+\end{proof}
+
+\begin{corollary}\label{cor:endomorphism-injective-surjective}
+Let $V$ be finite-dimensional and $\tau\in L(V,V)$. Then the following are equivalent:
+\[
+\tau\text{ is injective},\qquad
+\tau\text{ is surjective},\qquad
+\tau\text{ is an isomorphism}.
+\]
+\end{corollary}
+
+\section{The vector space of linear maps}
+
+The set $L(V,W)$ is itself a vector space. For $\tau,\sigma\in L(V,W)$ and $a,b\in F$, define
+\[
+v^{a\tau+b\sigma}=av^\tau+bv^\sigma.
+\]
+The vector-space axioms are inherited pointwise from $W$.
+
+When $V=W$, we write
+\[
+\End(V)=L(V,V)
+\]
+and call its elements \emph{linear operators}. In addition to addition and scalar multiplication, $\End(V)$ has composition. Composition is associative, distributes over addition, and has identity $I_V$. We will exploit this richer structure later.
+
+At this point no coordinates are needed. If ordered bases are eventually chosen, a linear map can of course be encoded by scalars. Such an encoding is a representation of the map relative to those choices, not the definition of the map itself.
+
+\section{Dual spaces}
+
+\begin{definition}
+The \emph{dual space} of $V$ is
+\[
+V^*=L(V,F).
+\]
+Its elements are called \emph{linear functionals} on $V$.
+\end{definition}
+
+There is a canonical bilinear evaluation pairing
+\[
+V^*\times V\longrightarrow F,
+\qquad
+(\varphi,v)\longmapsto\varphi(v).
+\]
+Unlike coordinates, this pairing requires no choice of basis.
+
+Suppose $V$ is finite-dimensional and $B=(v_1,\dots,v_n)$ is an ordered basis. By Theorem \ref{thm:linear-extension}, for each $i$ there is a unique functional $v^i\in V^*$ satisfying
+\[
+v^i(v_j)=\delta_{ij}.
+\]
+The ordered basis
+\[
+B^*=(v^1,\dots,v^n)
+\]
+is called the \emph{dual basis}.
+
+\begin{proposition}\label{prop:dual-dimension}
+If $V$ is finite-dimensional, then
+\[
+\dim V^*=\dim V.
+\]
+\end{proposition}
+
+\begin{proof}
+If $(v_1,\dots,v_n)$ is a basis of $V$, its dual basis $(v^1,\dots,v^n)$ is a basis of $V^*$. Indeed, for any $\varphi\in V^*$,
+\[
+\varphi=\sum_{i=1}^n\varphi(v_i)v^i,
+\]
+as can be checked on the basis vectors $v_j$.
+\end{proof}
+
+Every linear map induces a linear map in the opposite direction on dual spaces.
+
+\begin{definition}
+Let $\tau\colon V\to W$ be linear. Its \emph{dual map}
+\[
+\tau^*\colon W^*\longrightarrow V^*
+\]
+is defined by
+\[
+(\psi^{\tau^*})(v)=\psi(v^\tau).
+\]
+\end{definition}
+
+The reversal of direction is essential. If
+\[
+V\xrightarrow{\tau}W\xrightarrow{\sigma}U,
+\]
+then
+\[
+(\tau\sigma)^*=\sigma^*\tau^*.
+\]
+
+There is also a canonical map from a finite-dimensional vector space to its double dual.
+
+\begin{proposition}\label{prop:double-dual}
+Define
+\[
+\iota_V\colon V\longrightarrow V^{**}
+\]
+by
+\[
+(v^{\iota_V})(\varphi)=\varphi(v).
+\]
+If $V$ is finite-dimensional, then $\iota_V$ is an isomorphism.
+\end{proposition}
+
+\begin{proof}
+If $v^{\iota_V}=0$, then every functional vanishes on $v$. Extend $v$ to a basis when $v\neq0$ and take the corresponding dual functional which has value $1$ on $v$, a contradiction. Thus $\iota_V$ is injective. Since
+\[
+\dim V=\dim V^{**},
+\]
+it is an isomorphism.
+\end{proof}
+
+The importance of $\iota_V$ is that it is canonical: unlike an arbitrary isomorphism $V\cong V^*$, it requires no choice of basis.
+
+\section{Tensor products}
+
+The tensor product packages bilinear constructions into linear ones.
+
+\begin{definition}
+A \emph{tensor product} of vector spaces $V$ and $W$ is a vector space $V\otimes W$ together with a bilinear map
+\[
+\otimes\colon V\times W\longrightarrow V\otimes W,
+\qquad
+(v,w)\longmapsto v\otimes w,
+\]
+with the following universal property: for every vector space $U$ and every bilinear map
+\[
+b\colon V\times W\to U,
+\]
+there exists a unique linear map
+\[
+\widetilde b\colon V\otimes W\to U
+\]
+such that
+\[
+b(v,w)=(v\otimes w)^{\widetilde b}
+\]
+for all $v\in V$ and $w\in W$.
+\end{definition}
+
+A tensor product exists. One construction begins with the free vector space on the set $V\times W$ and quotients by the subspace generated by the relations
+\[
+(v+v',w)-(v,w)-(v',w),
+\]
+\[
+(v,w+w')-(v,w)-(v,w'),
+\]
+and
+\[
+(av,w)-a(v,w),\qquad (v,aw)-a(v,w).
+\]
+The image of the symbol $(v,w)$ in the quotient is denoted by $v\otimes w$. The universal property shows that any two tensor products are canonically isomorphic, so the construction itself is secondary.
+
+Every element of $V\otimes W$ is a finite sum of pure tensors $v\otimes w$, although such an expression is generally not unique.
+
+\begin{proposition}\label{prop:tensor-basis}
+If $(v_1,\dots,v_n)$ is a basis of $V$ and $(w_1,\dots,w_m)$ is a basis of $W$, then
+\[
+\{v_i\otimes w_j\mid 1\le i\le n,\ 1\le j\le m\}
+\]
+is a basis of $V\otimes W$. Consequently,
+\[
+\dim(V\otimes W)=(\dim V)(\dim W).
+\]
+\end{proposition}
+
+\begin{proof}
+Bilinearity shows that the displayed tensors span $V\otimes W$. Let $v^1,\dots,v^n$ and $w^1,\dots,w^m$ be the dual bases. For each pair $(r,s)$, the bilinear map
+\[
+(v,w)\longmapsto v^r(v)w^s(w)
+\]
+induces a linear functional on $V\otimes W$ which takes value $1$ on $v_r\otimes w_s$ and $0$ on all other displayed basis candidates. Hence they are linearly independent.
+\end{proof}
+
+Linear maps act naturally on tensor products. If
+\[
+\tau\colon V\to V',
+\qquad
+\sigma\colon W\to W',
+\]
+there is a unique linear map
+\[
+\tau\otimes\sigma\colon V\otimes W\to V'\otimes W'
+\]
+satisfying
+\[
+(v\otimes w)^{\tau\otimes\sigma}=v^\tau\otimes w^\sigma.
+\]
+This follows immediately from the universal property.
+
+\section{Linear maps as tensors}
+
+The dual space and tensor product combine to give a canonical description of linear maps.
+
+For $\varphi\in V^*$ and $w\in W$, define a linear map
+\[
+\tau_{\varphi,w}\colon V\to W
+\]
+by
+\[
+v^{\tau_{\varphi,w}}=\varphi(v)w.
+\]
+The assignment $(\varphi,w)\mapsto\tau_{\varphi,w}$ is bilinear, hence induces a canonical linear map
+\[
+\Theta_{V,W}\colon V^*\otimes W\longrightarrow L(V,W)
+\]
+satisfying
+\[
+\Theta_{V,W}(\varphi\otimes w)=\tau_{\varphi,w}.
+\]
+
+\begin{theorem}\label{thm:hom-tensor}
+If $V$ is finite-dimensional, then
+\[
+\Theta_{V,W}\colon V^*\otimes W\longrightarrow L(V,W)
+\]
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+Choose a basis $(v_1,\dots,v_n)$ of $V$ with dual basis $(v^1,\dots,v^n)$. For $\tau\in L(V,W)$, consider
+\[
+X_\tau=\sum_{i=1}^n v^i\otimes v_i^\tau.
+\]
+For $v=\sum_i a_iv_i$,
+\[
+v^{\Theta_{V,W}(X_\tau)}
+=
+\sum_i v^i(v)v_i^\tau
+=
+\sum_i a_iv_i^\tau
+=
+v^\tau.
+\]
+Thus $\Theta_{V,W}$ is surjective.
+
+Every element of $V^*\otimes W$ can be written in the form
+\[
+X=\sum_{i=1}^n v^i\otimes w_i
+\]
+for some $w_i\in W$. If $\Theta_{V,W}(X)=0$, evaluation at $v_j$ gives $w_j=0$ for every $j$. Hence $X=0$, and $\Theta_{V,W}$ is injective.
+\end{proof}
+
+Although a basis was used in the proof, the map $\Theta_{V,W}$ itself was defined without one. The theorem therefore gives a basis-free identification
+\[
+\boxed{L(V,W)\cong V^*\otimes W.}
+\]
+
+\begin{corollary}\label{cor:hom-dimension}
+If $V$ and $W$ are finite-dimensional, then
+\[
+\dim L(V,W)=(\dim V)(\dim W).
+\]
+\end{corollary}
+
+In particular,
+\[
+\End(V)\cong V^*\otimes V.
+\]
+This is the form in which we will define trace.
+
+\section{Contraction and trace}
+
+The evaluation pairing gives a canonical linear map from $V^*\otimes V$ to the base field.
+
+\begin{definition}
+The \emph{contraction map}
+\[
+C_V\colon V^*\otimes V\longrightarrow F
+\]
+is the unique linear map satisfying
+\[
+C_V(\varphi\otimes v)=\varphi(v).
+\]
+\end{definition}
+
+The existence and uniqueness of $C_V$ follow from the universal property of the tensor product, because evaluation $(\varphi,v)\mapsto\varphi(v)$ is bilinear.
+
+\begin{definition}[Trace]\label{def:trace}
+Let $V$ be finite-dimensional. Under the canonical isomorphism
+\[
+\Theta_{V,V}\colon V^*\otimes V\xrightarrow{\sim}\End(V),
+\]
+define
+\[
+\tr\colon\End(V)\longrightarrow F
+\]
+by
+\[
+\boxed{\tr=C_V\circ\Theta_{V,V}^{-1}.}
+\]
+\end{definition}
+
+Thus trace is the contraction of the tensor corresponding to an endomorphism. No basis is part of the definition.
+
+For a rank-one operator $\tau_{\varphi,v}$,
+\[
+\tr(\tau_{\varphi,v})=\varphi(v).
+\]
+Since every endomorphism is a sum of rank-one operators, this property determines trace completely.
+
+\begin{proposition}\label{prop:trace-identity}
+If $\dim V=n$, then
+\[
+\tr(I_V)=n\cdot1_F.
+\]
+\end{proposition}
+
+\begin{proof}
+Choose a basis $(v_1,\dots,v_n)$ with dual basis $(v^1,\dots,v^n)$. Under $\Theta_{V,V}$,
+\[
+I_V
+\longleftrightarrow
+\sum_{i=1}^n v^i\otimes v_i.
+\]
+Therefore
+\[
+\tr(I_V)
+=
+\sum_{i=1}^n v^i(v_i)
+=
+n\cdot1_F.
+\]
+\end{proof}
+
+The fundamental property of trace is cyclicity.
+
+\begin{theorem}[Cyclicity of trace]\label{thm:trace-cyclic}
+For $\tau,\sigma\in\End(V)$,
+\[
+\tr(\tau\sigma)=\tr(\sigma\tau).
+\]
+\end{theorem}
+
+\begin{proof}
+By linearity, it is enough to prove the claim when $\tau$ has rank one. Write
+\[
+\tau=\tau_{\varphi,v},
+\qquad
+x^\tau=\varphi(x)v.
+\]
+Then
+\[
+x^{\tau\sigma}=\varphi(x)v^\sigma,
+\]
+so $\tau\sigma$ corresponds to $\varphi\otimes v^\sigma$, and hence
+\[
+\tr(\tau\sigma)=\varphi(v^\sigma).
+\]
+On the other hand,
+\[
+x^{\sigma\tau}=\varphi(x^\sigma)v=(\varphi^{\sigma^*})(x)v,
+\]
+so $\sigma\tau$ corresponds to $\varphi^{\sigma^*}\otimes v$, and
+\[
+\tr(\sigma\tau)
+=
+\varphi^{\sigma^*}(v)
+=
+\varphi(v^\sigma).
+\]
+Thus the two traces are equal.
+\end{proof}
+
+\begin{corollary}\label{cor:trace-conjugation}
+If $\alpha\in\End(V)$ is invertible, then
+\[
+\tr(\alpha^{-1}\tau\alpha)=\tr(\tau)
+\]
+for every $\tau\in\End(V)$.
+\end{corollary}
+
+\begin{proof}
+Using Theorem \ref{thm:trace-cyclic},
+\[
+\tr(\alpha^{-1}\tau\alpha)
+=
+\tr(\alpha\alpha^{-1}\tau)
+=
+\tr(\tau).
+\]
+\end{proof}
+
+\begin{corollary}\label{cor:trace-commutator}
+For $\tau,\sigma\in\End(V)$,
+\[
+\tr(\tau\sigma-\sigma\tau)=0.
+\]
+\end{corollary}
+
+This last identity will reappear naturally when commutators are studied as Lie brackets.
+
+The tensor description also explains the familiar coordinate formula without using it as a definition. If $(v_1,\dots,v_n)$ is a basis with dual basis $(v^1,\dots,v^n)$, then
+\[
+\Theta_{V,V}^{-1}(\tau)
+=
+\sum_{i=1}^n v^i\otimes v_i^\tau,
+\]
+and therefore
+\[
+\tr(\tau)=\sum_{i=1}^n v^i(v_i^\tau).
+\]
+Choosing coordinates turns this scalar into the sum of the diagonal coefficients of a representing matrix, but the scalar itself existed before any matrix was chosen.
+
+We stop here. Determinants require exterior powers rather than merely tensor products, and the characteristic polynomial will arise from applying determinant to $tI-\tau$. Those constructions belong to the next chapter.
 
 \chapter{Multilinear form}
 
